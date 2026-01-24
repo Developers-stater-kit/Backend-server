@@ -12,7 +12,7 @@
   },
   "author": "Debojeet Karmakar",
   "license": "ISC",
-  "description": "",
+  "description": "Backend Server of the developers kit cli tool",
   "devDependencies": {
     "@types/node": "^25.0.10",
     "ts-node": "^10.9.2",
