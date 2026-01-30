@@ -1,3 +1,4 @@
+import { eq } from "drizzle-orm";
 import { db } from "../../../db/drizzle";
 import { features, frameworks } from "../../../db/schema/templets";
 
@@ -44,3 +45,38 @@ export async function createFeatures({ data }: { data: typeof features.$inferIns
         };
     }
 }
+
+
+/**
+ * Delete a feature by its ID
+ */
+export async function deleteFeature(id: string): Promise<Response> {
+    try {
+        const [deletedFeature] = await db
+            .delete(features)
+            .where(eq(features.id, id))
+            .returning({ id: features.id });
+
+        if (!deletedFeature) {
+            return {
+                success: false,
+                mssg: "Feature not found or already deleted.",
+                data: null,
+            };
+        }
+
+        return {
+            success: true,
+            mssg: "Feature deleted successfully.",
+            data: deletedFeature,
+        };
+    } catch (error) {
+        console.error("Error deleting feature:", error);
+        return {
+            success: false,
+            mssg: "Error occurred while deleting the feature.",
+            data: null,
+        };
+    }
+}
+

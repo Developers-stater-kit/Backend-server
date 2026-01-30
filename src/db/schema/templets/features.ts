@@ -6,7 +6,7 @@ import { FeatureType, Status } from "../helper";
 
 export const features = pgTable("features",{
     id: uuid("id").defaultRandom().primaryKey(),
-    uniqueKey: text('unique_key').notNull(),
+    uniqueKey: text('unique_key').notNull().unique(),
     featureType:FeatureType('feature_type').notNull(), 
     name: text('name').notNull(),
     repoName: text('repo_name').notNull(),

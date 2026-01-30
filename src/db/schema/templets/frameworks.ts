@@ -6,12 +6,12 @@ import { scope, Status } from "../helper";
 
 export const frameworks = pgTable("frameworks", {
     id: uuid("id").defaultRandom().primaryKey(),
-    uniqueKey: text('unique_key').notNull(),
+    uniqueKey: text('unique_key').notNull().unique(),
     name: text('name').notNull(),
     repoName: text('repo_name').notNull(),
     status: Status('status').default('PENDING'),
     isExperimental: boolean('is_experimental').notNull().default(false),
-    scopes: scope("scopes").array().notNull(),
+    scope: scope("scope").array().notNull(),
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });

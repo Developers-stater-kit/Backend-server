@@ -16,7 +16,7 @@ export const frameworkSchema = z.object({
     repoName: z.string().min(1),
     status: z.string().optional(),
     isExperimental: z.boolean().optional(),
-    scopes: z.array(z.string()).min(1),
+    scope: z.array(z.string()).min(1),
 });
 
 
