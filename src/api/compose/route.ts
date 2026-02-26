@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { composeSchema } from "./input-validation";
-import { composeService } from "./service";
+import { composeSchema } from "./types/input-validation";
+import { composeService } from "./service/service";
 
 const router = Router();
 

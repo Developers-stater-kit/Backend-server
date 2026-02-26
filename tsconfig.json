@@ -3,8 +3,16 @@
     "target": "ES2020",
     "module": "commonjs",
     "lib": ["ES2020"],
+
+    "baseUrl": "./src",
     "outDir": "./dist",
     "rootDir": "./src",
+
+    "paths": {
+      "@db/*": ["../db/*"],
+      "@api/*": ["api/*"]
+    },
+    
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -15,6 +23,6 @@
     "declarationMap": true,
     "sourceMap": true
   },
-  "include": ["src/**/*", "db"],
+  "include": ["src/**/*", "db/**/*"],
   "exclude": ["node_modules", "dist"]
 }

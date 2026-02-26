@@ -26,21 +26,21 @@ export async function createFeatures({ data }: { data: typeof features.$inferIns
         if (!newfeatures || !newfeatures.id) {
             return {
                 success: false,
-                mssg: "Framework creation failed.",
+                mssg: "Feature creation failed.",
                 data: null,
             };
         }
 
         return {
             success: true,
-            mssg: "Framework created successfully",
+            mssg: "Feature created successfully",
             data: newfeatures,
         };
     } catch (error) {
-        console.error("Error creating framework:", error);
+        console.error("Error creating Feature:", error);
         return {
             success: false,
-            mssg: "Error creating framework.",
+            mssg: "Error creating Feature.",
             data: null,
         };
     }
