@@ -69,19 +69,25 @@ export async function generateAuthFiles(
 
         const baseOauthTemplate = oauth.data as string;
         const oauthProvidersBlocks: string[] = [];
+
         input.socialProviders.forEach((provider) => {
-            const providerBlock = baseOauthTemplate.replace(
-                /_SOCIAL_PROVIDER_NAME_/g,
-                provider.toUpperCase()
-            );
+            const providerLower = provider.toLowerCase();
+            const providerUpper = provider.toUpperCase();
+
+            const providerBlock = baseOauthTemplate
+                .replace(/_SOCIAL_PROVIDER_NAME_/g, providerLower)
+                .replace(/_SOCIAL_PROVIDER_UPPER_/g, providerUpper)
+
             oauthProvidersBlocks.push(providerBlock.trim());
         });
-        const finalOauthBlock = oauthProvidersBlocks.join(",\n");
+
+        const finalOauthBlock = `socialProviders: {\n${oauthProvidersBlocks.join(",\n")}\n}`;
+
         authContent = authContent.replace(
             /\/\/ OAUTH_START[\s\S]*?\/\/ OAUTH_END/,
             `// OAUTH_START\n${finalOauthBlock}\n// OAUTH_END`
         );
-    }
+    };
 
     // 5️⃣ Fetch auth client
     const clientFile = await getRepoDetails(
@@ -125,22 +131,22 @@ export async function generateAuthFiles(
         {
             path: serverPath,
             content: authContent.replace(/\/\/ FEATURES_START[\s\S]*?\/\/ FEATURES_END/, ""),
-            renameto: authConfig.structure.server.name
+            name: authConfig.structure.server.name
         },
         {
             path: clientPath,
             content: clientFile.data as string,
-            renameto: authConfig.structure.client.name
+            name: authConfig.structure.client.name
         },
         {
             path: apiPath,
             content: routeContent,
-            renameto: authConfig.structure.api.name
+            name: authConfig.structure.api.name
         },
         {
             path: middlewarePath,
             content: middlewareFile.data as string,
-            renameto: authConfig.structure.middleware.name
+            name: authConfig.structure.middleware.name
         }
     ];
 
@@ -166,9 +172,9 @@ export async function generateAuthFiles(
             }
 
             files.push({
-                path: `${uiPath}/${componentFile}`,
+                path: `${uiPath}`,
                 content: uiFile.data as string,
-                renameto: componentFile
+                name: componentFile
             });
         }
     }

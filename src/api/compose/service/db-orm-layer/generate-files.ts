@@ -35,34 +35,26 @@ export async function generateDbOrmFiles(
   }
 
   // 5️⃣ Resolve final paths using utility function
-  const clientPath = resolvePaths(paths.client, frameworkConfig).replace(
-    "<client>",
-    ormConfig.structure.client
-  );
-
+  const clientPath = resolvePaths(paths.client, frameworkConfig);
   const configPath = resolvePaths(paths.config, frameworkConfig);
-
-  const schemaPath = resolvePaths(paths.schema, frameworkConfig).replace(
-    "<schema>",
-    ormConfig.structure.schema
-  );
+  const schemaPath = resolvePaths(paths.schema, frameworkConfig);
 
   // 6️⃣ Return ready-to-create files
   return [
     {
       path: clientPath,
       content: clientFile.data as string,
-      renameto: ormConfig.structure.client
+      name: ormConfig.structure.client
     },
     {
       path: configPath,
       content: configFile.data as string,
-      renameto: ormConfig.structure.config
+      name: ormConfig.structure.config
     },
     {
       path: schemaPath,
       content: schemaFile.data as string,
-      renameto: ormConfig.structure.schema
+      name: ormConfig.structure.schema
     }
   ];
 }

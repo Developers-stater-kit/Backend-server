@@ -1,7 +1,7 @@
 export type FileType = {
     path: string;
     content: string;
-    renameto: string;
+    name: string;
 };
 
 

@@ -71,7 +71,7 @@ export async function composeService(input: ComposeInput): Promise<ComposeResult
       }
     }
 
-    console.log(JSON.stringify(plan, null, 2));
+    // console.log(JSON.stringify(plan, null, 2));
     return plan as ComposeResult;
   } catch (error: any) {
     return {
