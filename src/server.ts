@@ -13,6 +13,10 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
+app.get("/", (req, res) => {
+    res.json({ message: "🚀 DevKit Service is running!" });
+  });
+
 app.use("/api", composeRoute);
 app.use("/api/features", featuresRoute);
 app.use("/api/framweorks", frameworkRoute);
