@@ -1,3 +1,11 @@
 # compiled output
 /dist
+
+# Dependencies
 /node_modules
+
+# environment Vars
+.env
+
+# cursor 
+.cursor
