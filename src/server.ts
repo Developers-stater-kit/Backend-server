@@ -8,14 +8,14 @@ import cors from "cors";
 
 
 const app = express();
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-    res.json({ message: "🚀 DevKit Service is running!" });
-  });
+    res.json({ message: "🚀 DevKit Backend is running!" });
+});
 
 app.use("/api", composeRoute);
 app.use("/api/features", featuresRoute);
