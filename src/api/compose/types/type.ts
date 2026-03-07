@@ -51,17 +51,17 @@ export interface ComposeResponse {
 export const Command = {
     shadcn: {
         bun: {
-            init: "bunx --bun shadcn@latest init",
+            init: "bunx --bun shadcn@latest init -b radix -p mira",
             addComponent: "bunx --bun shadcn@latest add "
         },
 
         npm: {
-            init: "npx shadcn@latest init",
+            init: "npx shadcn@latest init -b radix -p mira",
             addComponent: "npx shadcn@latest add "
         },
 
         pnpm: {
-            init: "pnpm dlx shadcn@latest init",
+            init: "pnpm dlx shadcn@latest init -b radix -p mira",
             addComponent: "pnpm dlx shadcn@latest add "
         }
     }
