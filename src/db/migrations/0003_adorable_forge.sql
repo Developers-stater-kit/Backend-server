@@ -1,2 +1,0 @@
-ALTER TABLE "features" ADD CONSTRAINT "features_unique_key_unique" UNIQUE("unique_key");--> statement-breakpoint
-ALTER TABLE "frameworks" ADD CONSTRAINT "frameworks_unique_key_unique" UNIQUE("unique_key");

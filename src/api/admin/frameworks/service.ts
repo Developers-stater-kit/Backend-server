@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../../db/drizzle";
-import { features, frameworkFeatures, frameworks } from "../../../db/schema/templets";
-import { createFramework } from "./repository";
+import { features, frameworkFeatures, frameworks } from "../../../db/schema/resources";
+import { createFramework, deleteFramework, getAllFrameworks, getFrameworkById, updateFramework } from "./repository";
 
 
 export async function createFrameworkService(payload: any) {
@@ -9,15 +9,31 @@ export async function createFrameworkService(payload: any) {
     return result;
 }
 
+export async function getAllFrameworksService() {
+    return await getAllFrameworks();
+}
+
+export async function getFrameworkByIdService(id: string) {
+    return await getFrameworkById(id);
+}
+
+export async function updateFrameworkService(id: string, payload: any) {
+    return await updateFramework(id, payload);
+}
+
+export async function deleteFrameworkService(id: string) {
+    return await deleteFramework(id);
+}
+
 type FeatureAssignInput = {
     frameworkKey: string;
     featureKey: string;
 };
 
-type Response = { 
-    success: boolean; 
-    mssg: string; 
-    data?: any 
+type Response = {
+    success: boolean;
+    mssg: string;
+    data?: any
 }
 
 export async function assignFeatureToFramework(data: FeatureAssignInput): Promise<Response> {

@@ -1,5 +1,5 @@
 import { and, eq } from "drizzle-orm";
-import { features, frameworkFeatures, frameworks } from "db/schema/templets";
+import { features, frameworkFeatures, frameworks } from "db/schema/resources";
 import { isFeatureCompatibleWithFramework } from "./repository";
 import { db } from "db/drizzle";
 
@@ -8,7 +8,7 @@ type Response = {
     mssg: string,
 }
 
-export async function compabilityCheck(framweorkKey: string, featureKey: string) : Promise<Response> {
+export async function compabilityCheck(framweorkKey: string, featureKey: string): Promise<Response> {
     try {
         if (!framweorkKey || !featureKey) {
             throw new Error("Keys Not Found");
@@ -37,7 +37,7 @@ export async function compabilityCheck(framweorkKey: string, featureKey: string)
             }
         };
 
-        const result =  await isFeatureCompatibleWithFramework(
+        const result = await isFeatureCompatibleWithFramework(
             framework.id,
             feature.id
         )
