@@ -15,14 +15,20 @@ import { auth } from "lib/auth";
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+const allowedOrigins = [
+    "http://localhost:3000",
+    process.env.FRONTEND_URL,
+].filter(Boolean) as string[];
+
 app.use(cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
 }));
-app.all("/api/auth/*path", toNodeHandler(auth))
+
 app.use(express.json());
 
+app.all("/api/auth/*path", toNodeHandler(auth))
 
 // ==========================================
 // PUBLIC ROUTES
