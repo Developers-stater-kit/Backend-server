@@ -24,9 +24,6 @@ app.all("/api/auth/*path", toNodeHandler(auth))
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => {
-    res.json({ message: "🚀 DevKit Backend is running!" });
-});
 
 // ==========================================
 // PUBLIC ROUTES
