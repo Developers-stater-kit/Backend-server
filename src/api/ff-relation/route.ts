@@ -1,8 +1,5 @@
 import { Router } from "express";
-import { linkFeatureToFramework } from "./service";
-
-
-
+import { getFeaturesForFramework, getFrameworksForFeature, linkFeatureToFramework, unlinkFeatureFromFramework } from "./service";
 
 const router = Router();
 
@@ -33,6 +30,33 @@ router.post("/frameworks/:frameworkKey/features/:featureKey", async (req, res) =
             message: "Internal Server Error",
             error: error.message
         });
+    }
+});
+
+router.get("/frameworks/:frameworkKey/features", async (req, res) => {
+    try {
+        const result = await getFeaturesForFramework(req.params.frameworkKey);
+        res.status(result.success ? 200 : 400).json(result);
+    } catch (error: any) {
+        res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
+    }
+});
+
+router.get("/features/:featureKey/frameworks", async (req, res) => {
+    try {
+        const result = await getFrameworksForFeature(req.params.featureKey);
+        res.status(result.success ? 200 : 400).json(result);
+    } catch (error: any) {
+        res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
+    }
+});
+
+router.delete("/frameworks/:frameworkKey/features/:featureKey", async (req, res) => {
+    try {
+        const result = await unlinkFeatureFromFramework(req.params.frameworkKey, req.params.featureKey);
+        res.status(result.success ? 200 : 400).json(result);
+    } catch (error: any) {
+        res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
     }
 });
 

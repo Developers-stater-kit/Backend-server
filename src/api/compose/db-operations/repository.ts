@@ -1,5 +1,5 @@
 import { eq, and } from "drizzle-orm";
-import { features, frameworkFeatures, frameworks } from "db/schema/templets";
+import { features, frameworkFeatures, frameworks } from "db/schema/resources";
 import { db } from "db/drizzle";
 
 type Response = {

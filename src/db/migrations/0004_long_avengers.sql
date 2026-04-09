@@ -1,1 +1,0 @@
-ALTER TABLE "frameworks" RENAME COLUMN "scopes" TO "scope";

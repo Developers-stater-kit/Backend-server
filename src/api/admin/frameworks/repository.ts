@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../../db/drizzle";
-import { frameworks } from "../../../db/schema/templets";
+import { frameworks } from "../../../db/schema/resources";
 
 
 type Response = {
@@ -82,3 +82,51 @@ export async function deleteFramework(id: string): Promise<Response> {
         return { success: false, mssg: "Error deleting framework.", data: null };
     }
 }
+
+export async function getAllFrameworks(): Promise<Response> {
+    try {
+        const result = await db.select().from(frameworks);
+        return { success: true, mssg: "Frameworks fetched successfully", data: result };
+    } catch (error) {
+        console.error("Error fetching frameworks:", error);
+        return { success: false, mssg: "Error fetching frameworks", data: null };
+    }
+}
+
+export async function getFrameworkById(id: string): Promise<Response> {
+    try {
+        const [framework] = await db
+            .select()
+            .from(frameworks)
+            .where(eq(frameworks.id, id))
+            .limit(1);
+
+        if (!framework) {
+            return { success: false, mssg: "Framework not found.", data: null };
+        }
+
+        return { success: true, mssg: "Framework fetched successfully", data: framework };
+    } catch (error) {
+        console.error("Error fetching framework:", error);
+        return { success: false, mssg: "Error fetching framework", data: null };
+    }
+}
+
+export async function updateFramework(id: string, data: Partial<typeof frameworks.$inferInsert>): Promise<Response> {
+    try {
+        const [updated] = await db
+            .update(frameworks)
+            .set({ ...data, updatedAt: new Date() })
+            .where(eq(frameworks.id, id))
+            .returning();
+
+        if (!updated) {
+            return { success: false, mssg: "Framework not found.", data: null };
+        }
+
+        return { success: true, mssg: "Framework updated successfully", data: updated };
+    } catch (error) {
+        console.error("Error updating framework:", error);
+        return { success: false, mssg: "Error updating framework", data: null };
+    }
+}

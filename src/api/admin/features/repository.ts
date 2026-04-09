@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../../db/drizzle";
-import { features, frameworks } from "../../../db/schema/templets";
+import { features, frameworks } from "../../../db/schema/resources";
 
 
 type Response = {
@@ -80,3 +80,50 @@ export async function deleteFeature(id: string): Promise<Response> {
     }
 }
 
+export async function getAllFeatures(): Promise<Response> {
+    try {
+        const result = await db.select().from(features);
+        return { success: true, mssg: "Features fetched successfully", data: result };
+    } catch (error) {
+        console.error("Error fetching features:", error);
+        return { success: false, mssg: "Error fetching features", data: null };
+    }
+}
+
+export async function getFeatureById(id: string): Promise<Response> {
+    try {
+        const [feature] = await db
+            .select()
+            .from(features)
+            .where(eq(features.id, id))
+            .limit(1);
+
+        if (!feature) {
+            return { success: false, mssg: "Feature not found.", data: null };
+        }
+
+        return { success: true, mssg: "Feature fetched successfully", data: feature };
+    } catch (error) {
+        console.error("Error fetching feature:", error);
+        return { success: false, mssg: "Error fetching feature", data: null };
+    }
+}
+
+export async function updateFeature(id: string, data: Partial<typeof features.$inferInsert>): Promise<Response> {
+    try {
+        const [updated] = await db
+            .update(features)
+            .set({ ...data, updatedAt: new Date() })
+            .where(eq(features.id, id))
+            .returning();
+
+        if (!updated) {
+            return { success: false, mssg: "Feature not found.", data: null };
+        }
+
+        return { success: true, mssg: "Feature updated successfully", data: updated };
+    } catch (error) {
+        console.error("Error updating feature:", error);
+        return { success: false, mssg: "Error updating feature", data: null };
+    }
+}
