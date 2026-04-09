@@ -28,6 +28,6 @@ export const auth = betterAuth({
     },
     trustedOrigins: [
         'http://localhost:3000',
-        // 'https://contentgeniusai-one.vercel.app',
+        'https://devbuilds-admin.vercel.app',
     ],
 });
