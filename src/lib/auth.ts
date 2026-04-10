@@ -30,4 +30,11 @@ export const auth = betterAuth({
         'http://localhost:3000',
         "https://admin.devbuilds.in",
     ],
+    advanced: {
+        useSecureCookies: true,
+        crossSubDomainCookies: {
+            enabled: true,
+            domain: "devbuilds.in",
+        },
+    },
 });
