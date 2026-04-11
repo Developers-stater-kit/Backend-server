@@ -34,7 +34,11 @@ export const auth = betterAuth({
         useSecureCookies: true,
         crossSubDomainCookies: {
             enabled: true,
-            domain: "devbuilds.in",
+            domain: ".devbuilds.in",
         },
+        defaultCookieAttributes: {
+            sameSite: "none",
+            secure: true,
+        }
     },
 });
